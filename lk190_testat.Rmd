@@ -1,0 +1,52 @@
+---
+title: "Prüfung_Laura_Köhler"
+autor: Laura Köhler
+Kürzel: lk190
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+library(igraph)
+```
+
+#Daten und Codebuch
+
+Daten kommen vom Github-Repo lk190 [https://github.com/lk190/Pruefung_Netzwerk]
+
+```{r Netzwerk einlesen}
+
+library(igraph)
+
+# Einlesen der Edge- und Nodelist
+edges <- read.csv("https://raw.githubusercontent.com/lk190/Pruefung_Netzwerk/main/edgelist.csv", header=T, as.is=T, sep = ";")
+
+nodes <- read.csv("https://raw.githubusercontent.com/lk190/Pruefung_Netzwerk/main/nodelist.csv", header=T, as.is=T, sep = ";")
+
+# Matrix erstellen
+edgematrix <-as.matrix(edges)
+
+# Zusammenführen von Edge- und Nodelist als igraph-Objekt n
+gr <- graph_from_data_frame(d=edgematrix, directed=F)
+gr
+
+
+```
+
+
+```{r Netzwerk analysieren, fig.height=6, fig.width=9}
+
+plot(gr,
+     asp=0,
+     layout=layout_nicely,
+     rescale=TRUE,
+     vertex.size=degree(n)*4,
+     vertex.frame.color="green",
+     edge.color="pink",
+     node.color="pink",
+     vertex.color="pink",
+     edge.arrow.size=2,
+     main="Netzwerkerhebung Fußball",
+     sub="Visualisierung Vereine und Spieler")
+
+```
